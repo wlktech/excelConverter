@@ -13,41 +13,30 @@ class DataController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $data = Database::latest()->get();
+        return view('index', compact('data'));
     }
 
     public function uploadExcel(Request $request)
     {
         $request->validate(['excel' => 'required|mimes:xls,xlsx|max:2048']); // Example with size limit
-    
-        try {
-            $excel = $request->file('excel');
-            $temporaryPath = $excel->getRealPath();
-    
-            // Import using the temporary path
-            Excel::import(new ImportData, $temporaryPath);
-    
-            // Provide more detailed feedback
-            // e.g., count of imported records (this requires modification in ImportData)
-            return redirect()->route('data')->with('success', 'Addresses imported successfully.');
-    
-        } catch (\Exception $e) {
-            // User-friendly error message
-            Log::error('Excel import error: ' . $e->getMessage());
-            return back()->with('error', 'Import failed due to a server error. Please try again later.');
-        }
-    }
-    
 
-    public function getData()
-    {
-        $data = Database::latest()->paginate(10);
-        return view('data', ['data' => $data]);
+        Excel::import(new ImportData, $request->file('excel'));
+        return back()->with('success', 'Data imported successfully.');
     }
     
     public function export()
     {
         return Excel::download(new ExportData, 'data.xlsx');
+    }
+
+    public function bulkDelete()
+    {
+        $datas = Database::all();
+        foreach ($datas as $data) {
+            $data->delete();
+        }
+        return redirect()->back()->with('success', 'All data deleted successfully.');
     }
 }
 

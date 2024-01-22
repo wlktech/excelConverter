@@ -1,23 +1,15 @@
 @extends('master')
 
 @section('content')
-<div class="container">
+<div class="container mt-5">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-12">
             <div class="card p-4 border border-0 shadow" id="form">
                 <div class="d-flex justify-content-between mb-3">
                     <h5 class="text-center">Excel Format Converter</h5>
-                    <div>
-                        <a href="{{ route('data') }}" class="btn btn-sm btn-primary">See List</a>
-                    </div>
                 </div>
-                {{-- @if(Session::has('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ Session::get('success') }}
-                </div>
-                @endif --}}
                 
-                <form action="{{ route('upload') }}" method="post" enctype="multipart/form-data">
+                <form class="mb-5" action="{{ route('upload') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="excel" class="form-label">Excel File</label>
@@ -42,6 +34,7 @@
                 
             </div>
         </div>
-    </div>    
+    </div>   
+    @include('data') 
 </div> 
 @endsection

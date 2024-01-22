@@ -6,11 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Excel Converter</title>
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <style>
-        #form{
-            margin-top: 20%;
-        }
-    </style>
 </head>
 <body>
     

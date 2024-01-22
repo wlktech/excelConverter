@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', [TestController::class, 'index']);
-Route::post('/upload', [TestController::class, 'uploadExcel'])->name('upload');
-Route::get('/data', [TestController::class, 'getData'])->name('data');
-Route::get('/export', [TestController::class, 'export'])->name('export');
+
+Route::get('/', [DataController::class, 'index']);
+Route::post('/upload', [DataController::class, 'uploadExcel'])->name('upload');
+Route::get('/export', [DataController::class, 'export'])->name('export');
+Route::post('/bulk-delete', [DataController::class, 'bulkDelete'])->name('bulk-delete');
